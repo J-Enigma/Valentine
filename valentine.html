@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine? 💕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink: #ff69b4;
+            --dark-pink: #ff1493;
+            --light-pink: #ffb6c1;
+            --cream: #fff5f7;
+            --red: #ff4757;
+            --heart-shadow: 0 10px 30px rgba(255, 20, 147, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 50%, #ffd4ea 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Floating hearts background */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: float-up 8s infinite ease-in;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 50px;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.4);
+            max-width: 600px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+            border: 3px solid var(--light-pink);
+        }
+
+        .container.success {
+            animation: celebrate 0.6s ease-out;
+        }
+
+        @keyframes celebrate {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.5rem;
+            color: var(--dark-pink);
+            margin-bottom: 20px;
+            animation: bounce-in 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            text-shadow: 3px 3px 6px rgba(255, 20, 147, 0.2);
+        }
+
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .big-heart {
+            font-size: 8rem;
+            margin: 30px 0;
+            display: inline-block;
+            animation: heartbeat 1.5s infinite;
+            filter: drop-shadow(var(--heart-shadow));
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            10%, 30% {
+                transform: scale(1.1);
+            }
+            20%, 40% {
+                transform: scale(1);
+            }
+        }
+
+        .question {
+            font-size: 1.8rem;
+            color: #555;
+            margin: 30px 0;
+            font-weight: 600;
+            animation: fade-in 1s 0.3s both;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            animation: fade-in 1s 0.6s both;
+        }
+
+        button {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding: 18px 45px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, var(--dark-pink), var(--red));
+            color: white;
+            transform: scale(1);
+        }
+
+        .yes-btn:hover {
+            transform: scale(1.1) rotate(-2deg);
+            box-shadow: 0 12px 30px rgba(255, 20, 147, 0.5);
+        }
+
+        .no-btn {
+            background: linear-gradient(135deg, #ddd, #bbb);
+            color: #666;
+        }
+
+        .no-btn:hover {
+            background: linear-gradient(135deg, #ccc, #aaa);
+        }
+
+        /* Success message */
+        .success-message {
+            display: none;
+            animation: fade-in 0.8s ease-out;
+        }
+
+        .success-message h2 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3rem;
+            color: var(--red);
+            margin-bottom: 20px;
+        }
+
+        .success-message p {
+            font-size: 1.4rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .explosion {
+            position: fixed;
+            font-size: 3rem;
+            pointer-events: none;
+            z-index: 1000;
+            animation: explode 1s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .big-heart {
+                font-size: 6rem;
+            }
+            .question {
+                font-size: 1.4rem;
+            }
+            button {
+                font-size: 1.1rem;
+                padding: 15px 35px;
+            }
+            .container {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-bg" id="heartBg"></div>
+
+    <div class="container" id="container">
+        <div id="questionSection">
+            <h1>Hey You! 💌</h1>
+            <div class="big-heart">💖</div>
+            <p class="question">Will you be my Valentine?</p>
+            <div class="buttons">
+                <button class="yes-btn" onclick="sayYes()">Yes! 💕</button>
+                <button class="no-btn" id="noBtn" onclick="moveButton()">No 😢</button>
+            </div>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <h2>Yay! 🎉</h2>
+            <div class="big-heart">💝</div>
+            <p>You just made me the happiest person ever! 😊</p>
+            <p style="margin-top: 20px; font-size: 1.2rem;">Can't wait to celebrate with you! ❤️</p>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts background
+        const heartBg = document.getElementById('heartBg');
+        const hearts = ['💕', '💖', '💗', '💓', '💝', '❤️', '💘'];
+        
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            heartBg.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 8000);
+        }
+
+        // Create hearts continuously
+        setInterval(createFloatingHeart, 300);
+
+        // Move "No" button away when hovered
+        let moveCount = 0;
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            const container = document.getElementById('container');
+            const containerRect = container.getBoundingClientRect();
+            
+            moveCount++;
+            
+            // Make "Yes" button bigger each time they try to click "No"
+            const yesBtn = document.querySelector('.yes-btn');
+            const currentScale = 1 + (moveCount * 0.15);
+            yesBtn.style.transform = `scale(${currentScale})`;
+            
+            // Random position
+            const maxX = containerRect.width - noBtn.offsetWidth - 40;
+            const maxY = containerRect.height - noBtn.offsetHeight - 40;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            noBtn.style.transition = 'all 0.3s ease';
+            
+            // Change text after multiple attempts
+            if (moveCount === 3) {
+                noBtn.textContent = "Really? 🥺";
+            } else if (moveCount === 5) {
+                noBtn.textContent = "Please? 💔";
+            } else if (moveCount === 7) {
+                noBtn.textContent = "Just Yes! 😭";
+            } else if (moveCount > 8) {
+                noBtn.textContent = "YESSSS! 💖";
+                noBtn.onclick = sayYes;
+                noBtn.className = 'yes-btn';
+            }
+        }
+
+        // Say yes!
+        function sayYes() {
+            const container = document.getElementById('container');
+            const questionSection = document.getElementById('questionSection');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Create heart explosion
+            for (let i = 0; i < 30; i++) {
+                createExplosion();
+            }
+            
+            // Show success message
+            container.classList.add('success');
+            questionSection.style.display = 'none';
+            successMessage.style.display = 'block';
+            
+            // More hearts!
+            for (let i = 0; i < 50; i++) {
+                setTimeout(createFloatingHeart, i * 100);
+            }
+        }
+
+        // Create heart explosion effect
+        function createExplosion() {
+            const explosion = document.createElement('div');
+            explosion.className = 'explosion';
+            explosion.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+            
+            const container = document.getElementById('container');
+            const rect = container.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            explosion.style.left = centerX + 'px';
+            explosion.style.top = centerY + 'px';
+            
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 300 + 100;
+            const tx = Math.cos(angle) * distance;
+            const ty = Math.sin(angle) * distance;
+            
+            explosion.style.setProperty('--tx', tx + 'px');
+            explosion.style.setProperty('--ty', ty + 'px');
+            
+            document.body.appendChild(explosion);
+            
+            setTimeout(() => explosion.remove(), 1000);
+        }
+    </script>
+</body>
+</html>
